@@ -1,16 +1,24 @@
-export const App = () => {
+//COMPONENTS
+import ContactForm from './ContactForm/ContactForm';
+import Filter from './Filter/Filter';
+import ContactList from './ContactList/ContactList';
+import { useGetContactsQuery } from 'redux/contactsSlice';
+//STYLES
+import { Section, Container, Content, Title } from './App.styled';
+
+export default function App() {
+  const { data: contacstList, isLoading } = useGetContactsQuery();
+
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
-    </div>
+    <Section>
+      <Container>
+        <Content>
+          <Title> Книга контактів</Title>
+          <ContactForm contacstList={contacstList} />
+          <Filter />
+          <ContactList contacstList={contacstList} isLoading={isLoading} />
+        </Content>
+      </Container>
+    </Section>
   );
-};
+}

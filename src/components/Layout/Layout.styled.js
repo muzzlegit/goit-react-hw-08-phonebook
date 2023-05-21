@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import theme from 'theme';
 
-export const Section = styled.section({
+export const Section = styled.main({
   margin: '2vh auto',
   height: '96vh',
   width: '820px',
@@ -22,7 +22,7 @@ export const Container = styled.div({
   alignItems: 'flex-start',
   gap: '6px',
 });
-export const Content = styled.div({
+export const Content = styled.section({
   width: '100%',
   boxSizing: 'border-box',
   textAlign: 'center',

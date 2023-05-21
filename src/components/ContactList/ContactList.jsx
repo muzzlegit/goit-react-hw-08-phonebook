@@ -1,15 +1,17 @@
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { MagnifyingGlass } from 'react-loader-spinner';
 //SELECTORS
 import { getFilter } from 'redux/filterSlice';
+//SLICES
+import { useGetContactsQuery } from 'redux/contactsSlice';
 //COMPONENTS
 import ContactItem from 'components/ContactItem/ContactItem';
 //STYLE
 import { List, Item } from './ContactList.styled';
 
-export default function ContactList({ contacstList, isLoading }) {
+export default function ContactList() {
+  const { data: contacstList, isLoading } = useGetContactsQuery();
   const filter = useSelector(getFilter);
   const [visibleContacts, setVisibleContacts] = useState(contacstList);
 
@@ -48,13 +50,3 @@ export default function ContactList({ contacstList, isLoading }) {
     </List>
   );
 }
-ContactList.propTypes = {
-  contacstList: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      phone: PropTypes.string.isRequired,
-    })
-  ),
-  isLoading: PropTypes.bool.isRequired,
-};

@@ -1,24 +1,23 @@
+import { Route, Routes } from 'react-router-dom';
+//PAGES
+import Contacts from 'pages/Contacts';
+import Login from 'pages/Login';
+import Register from 'pages/Register';
 //COMPONENTS
-import ContactForm from './ContactForm/ContactForm';
-import Filter from './Filter/Filter';
-import ContactList from './ContactList/ContactList';
-import { useGetContactsQuery } from 'redux/contactsSlice';
-//STYLES
-import { Section, Container, Content, Title } from './App.styled';
+import Layout from './Layout/Layout';
+//SELECTORS
+import { getIsLogin } from 'redux/userSlice';
+import { useSelector } from 'react-redux';
 
 export default function App() {
-  const { data: contacstList, isLoading } = useGetContactsQuery();
-
+  const isLogin = useSelector(getIsLogin);
   return (
-    <Section>
-      <Container>
-        <Content>
-          <Title> Книга контактів</Title>
-          <ContactForm contacstList={contacstList} />
-          <Filter />
-          <ContactList contacstList={contacstList} isLoading={isLoading} />
-        </Content>
-      </Container>
-    </Section>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={isLogin ? <Contacts /> : <Login />} />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+      </Route>
+    </Routes>
   );
 }

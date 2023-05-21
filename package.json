@@ -1,8 +1,8 @@
 {
-  "name": "goit-react-hw-07-phonebook",
+  "name": "goit-react-hw-08-phonebook",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://muzzlegit.github.io/goit-react-hw-07-phonebook/",
+  "homepage": "https://muzzlegit.github.io/goit-react-hw-08-phonebook/",
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
@@ -16,6 +16,7 @@
     "react-icons": "^4.8.0",
     "react-loader-spinner": "^5.3.4",
     "react-redux": "^8.0.5",
+    "react-router-dom": "^6.11.2",
     "react-scripts": "5.0.1",
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",

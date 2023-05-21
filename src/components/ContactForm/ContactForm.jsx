@@ -2,15 +2,17 @@ import { useState } from 'react';
 import { nanoid } from 'nanoid';
 //SLICES
 import { useAddContactMutation } from 'redux/contactsSlice';
+import { useGetContactsQuery } from 'redux/contactsSlice';
 //ICONS
 import { BsPersonPlus } from 'react-icons/bs';
 //STYLES
 import { Form, Label, Input, Button } from './ContactForm.styled';
 
-export default function ContactForm({ contacstList }) {
+export default function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const [addContact] = useAddContactMutation();
+  const { data: contacstList } = useGetContactsQuery();
 
   const onInputChange = e => {
     const key = e.currentTarget.name;

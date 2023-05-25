@@ -3,8 +3,6 @@ import { nanoid } from 'nanoid';
 //SLICES
 import { useAddContactMutation } from 'redux/contactsSlice';
 import { useGetContactsQuery } from 'redux/contactsSlice';
-//ICONS
-import { BsPersonPlus } from 'react-icons/bs';
 //STYLES
 import { Form, Label, Input, Button } from './ContactForm.styled';
 

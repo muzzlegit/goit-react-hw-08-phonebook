@@ -3,8 +3,6 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 //API
 import { useLogoutUserMutation } from 'redux/authSlice';
-//SLICES
-import { setUserStatus } from 'redux/userSlice';
 import { getUser, removeUser } from 'redux/userSlice';
 //SELECTORS
 

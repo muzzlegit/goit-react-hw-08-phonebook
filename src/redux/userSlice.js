@@ -9,19 +9,23 @@ export const userSlice = createSlice({
   },
   reducers: {
     setUserStatus(state, action) {
-      console.log(action.payload);
       state.isLogin = action.payload;
     },
     setUser(state, action) {
-      const { user, token } = action.payload.data;
+      const { user, token } = action.payload;
       state.user = { ...user };
       state.token = token;
       state.isLogin = true;
     },
+    removeUser(state) {
+      state.user = { name: null, email: null };
+      state.token = null;
+      state.isLogin = false;
+    },
   },
 });
 //Actions
-export const { setUser, setUserStatus } = userSlice.actions;
+export const { setUser, setUserStatus, removeUser } = userSlice.actions;
 //Reducer
 export const userReducer = userSlice.reducer;
 //Selectors

@@ -3,7 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { contactsApi } from './contactsSlice';
 import { filterReducer } from 'redux/filterSlice.js';
 import { userReducer } from './userSlice';
-import { authApi } from './authApi';
+import { authApi } from './authSlice';
 
 export const store = configureStore({
   reducer: {

@@ -11,7 +11,12 @@ import ContactItem from 'components/ContactItem/ContactItem';
 import { List, Item } from './ContactList.styled';
 
 export default function ContactList() {
-  const { data: contacstList, isLoading } = useGetContactsQuery();
+  const { data: contacstList, isLoading } = useGetContactsQuery(
+    { name: 'Contacts' },
+    {
+      refetchOnMountOrArgChange: true,
+    }
+  );
   const filter = useSelector(getFilter);
   const [visibleContacts, setVisibleContacts] = useState(contacstList);
 
@@ -38,8 +43,8 @@ export default function ContactList() {
   return (
     <List>
       {!visibleContacts?.length && (
-        <Item color="black">
-          {visibleContacts?.length
+        <Item>
+          {contacstList?.length
             ? 'В тебе немає такого контакту'
             : 'Здається, в тебе немає жодного знайомого :('}
         </Item>

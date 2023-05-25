@@ -1,38 +1,74 @@
 import styled from '@emotion/styled';
 import theme from 'theme';
 
+export const FormBox = styled.div(
+  {
+    margin: '0 auto',
+    padding: '30px',
+    width: '400px',
+    borderRadius: '20px',
+    color: theme.colors.acent,
+  },
+  props => ({
+    boxShadow: props.shadow,
+  })
+);
+export const FormTitle = styled.h2({
+  marginBottom: '32px',
+  fontSize: '28px',
+  fontWeight: '600',
+});
+export const FormSubTitle = styled.p({
+  marginBottom: '32px',
+  fontSize: '20px',
+  fontWeight: '600',
+  fontFamily: theme.fontFamily.caveat,
+});
 export const Form = styled.form({
-  marginBottom: '20px',
   width: '100%',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'start',
   alignItems: 'center',
-  gap: '16px',
+  gap: '32px',
 });
-export const Label = styled.label({
-  color: theme.colors.black,
-  fontSize: '28px',
+export const InputBox = styled.div({
+  position: 'relative',
+  display: 'flex',
+  width: '100%',
 });
 
 export const Input = styled.input({
-  padding: '4px 8px 0 8px',
-  width: '200px',
+  padding: '15px 20px 15px 40px',
+  width: '100%',
   border: 'none',
-  borderBottom: `1px solid ${theme.colors.blue}`,
-  backgroundColor: 'transparent',
-  fontFamily: theme.fontFamily.caveat,
-  color: theme.colors.blue,
-  fontSize: '26px',
-  '&:focus': {
-    outline: 'none',
+  outline: 'none',
+  borderRadius: '10px',
+  background: 'transparent',
+  fontSize: '16px',
+  color: theme.colors.acent,
+  boxShadow: theme.shadows.inputInletShadow,
+});
+
+export const Button = styled.button({
+  marginTop: '24px',
+  padding: '15px 20px',
+  width: '100%',
+  border: 'none',
+  borderRadius: '10px',
+  background: 'transparent',
+  boxShadow: theme.shadows.submitButtonShadow,
+  fontSize: '20px',
+  color: theme.colors.acent,
+  cursor: 'pointer',
+  '&:active': {
+    boxShadow: theme.shadows.inputInletShadow,
   },
 });
-export const Button = styled.button({
-  border: 'none',
-  backgroundColor: 'transparent',
-  color: theme.colors.green,
-  '&:hover': {
-    cursor: 'pointer',
-  },
+export const ErrorBox = styled.div({
+  marginTop: '24px',
+  height: '30px',
+  color: theme.colors.red,
+  fontSize: '24px',
+  fontFamily: theme.fontFamily.caveat,
 });

@@ -2,19 +2,32 @@ import { Outlet } from 'react-router-dom';
 //COMPONENTS
 import NavBar from 'components/NavBar/NavBar';
 //STYLES
-import { Section, Container, Content, Title } from './Layout.styled';
+import {
+  Container,
+  Section,
+  GridContainer,
+  GridCell,
+  Title,
+} from './Layout.styled';
 
-const Layout = ({ isLogin, setIsLogin }) => {
+const Layout = () => {
   return (
-    <Section>
-      <Container>
-        <Content>
+    <main>
+      <Section>
+        <Container>
           <Title> Книга контактів</Title>
-          <Outlet />
-        </Content>
-        <NavBar isLogin={isLogin} setIsLogin={setIsLogin} />
-      </Container>
-    </Section>
+          <GridContainer>
+            <GridCell gridArea="placeholder"></GridCell>
+            <GridCell gridArea="content">
+              <Outlet />
+            </GridCell>
+            <GridCell gridArea="navbar">
+              <NavBar />
+            </GridCell>
+          </GridContainer>
+        </Container>
+      </Section>
+    </main>
   );
 };
 

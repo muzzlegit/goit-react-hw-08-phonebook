@@ -2,12 +2,17 @@ import styled from '@emotion/styled';
 import theme from 'theme';
 
 export const Form = styled.form({
-  marginBottom: '20px',
+  marginBottom: '40px',
+  padding: '20px',
   width: '100%',
+  boxSizing: 'border-box',
   display: 'flex',
-  justifyContent: 'start',
+  justifyContent: 'space-around',
   alignItems: 'center',
   gap: '16px',
+  borderRadius: '10px',
+  color: theme.colors.acent,
+  boxShadow: theme.shadows.formShadow,
 });
 export const Label = styled.label({
   color: theme.colors.black,
@@ -24,23 +29,29 @@ export const Item = styled.li(
   })
 );
 export const Input = styled.input({
+  marginLeft: '10px',
   padding: '4px 8px 0 8px',
   width: '200px',
   border: 'none',
-  borderBottom: `1px solid ${theme.colors.blue}`,
+  outline: 'none',
+  borderRadius: '10px',
   backgroundColor: 'transparent',
   fontFamily: theme.fontFamily.caveat,
-  color: theme.colors.blue,
+  color: theme.colors.acent,
+  boxShadow: theme.shadows.inputInletShadow,
   fontSize: '26px',
-  '&:focus': {
-    outline: 'none',
-  },
 });
 export const Button = styled.button({
+  padding: '10px 20px',
+  height: '100%',
   border: 'none',
-  backgroundColor: 'transparent',
-  color: theme.colors.green,
-  '&:hover': {
-    cursor: 'pointer',
+  borderRadius: '10px',
+  background: 'transparent',
+  boxShadow: theme.shadows.submitButtonShadow,
+  fontSize: '16px',
+  color: theme.colors.acent,
+  cursor: 'pointer',
+  '&:active': {
+    boxShadow: theme.shadows.inputInletShadow,
   },
 });

@@ -1,34 +1,61 @@
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 //API
-import { useLogoutUserMutation } from 'redux/authApi';
+import { useLogoutUserMutation } from 'redux/authSlice';
 //SLICES
 import { setUserStatus } from 'redux/userSlice';
+import { getUser, removeUser } from 'redux/userSlice';
 //SELECTORS
-import { getUser } from 'redux/userSlice';
+
 import { useSelector } from 'react-redux';
 //STYLES
-import { Img } from './UserMenu.styled';
+import theme from 'theme';
+import { MenuBox, MenuTitle, Img, Button, ErrorBox } from './UserMenu.styled';
+const hoverStyles = {
+  isHover: {
+    scale: '1.1',
+    shadow: theme.shadows.submitButtonShadow,
+  },
+  notHover: {
+    scale: '1',
+    shadow: theme.shadows.inputInletShadow,
+  },
+};
 
 const UserMenu = () => {
+  const [isHover, setisHover] = useState(hoverStyles.notHover);
   const user = useSelector(getUser);
   const [logoutUser, { isError }] = useLogoutUserMutation();
-  console.log('🚀 ~ error:', isError);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleOnLogoutClick = async () => {
     let res = await logoutUser();
-    if (!res.error?.status) dispatch(setUserStatus(false));
+    if (res.data) {
+      dispatch(removeUser());
+      navigate('/login');
+    }
   };
-  if (isError) return <h3>Ошибка</h3>;
+
   return (
-    <div>
-      <h2>Вітаю,</h2>
-      <h2>{user.name}</h2>
-      <Img src="" />
-      <button type="button" onClick={handleOnLogoutClick}>
-        LogOut
-      </button>
-    </div>
+    <MenuBox>
+      <MenuTitle>Вітаю, {user.name} !</MenuTitle>
+      <Img hover={isHover} />
+      <Button
+        type="button"
+        onMouseEnter={() => {
+          setisHover(hoverStyles.isHover);
+        }}
+        onMouseLeave={() => {
+          setisHover(hoverStyles.notHover);
+        }}
+        onClick={handleOnLogoutClick}
+      >
+        Вийти
+      </Button>
+      <ErrorBox>{isError ? 'Не вдалося вийти, спробуй ще раз!' : ''}</ErrorBox>
+    </MenuBox>
   );
 };
 

@@ -8,7 +8,7 @@ import theme from 'theme';
 import { Item, Button } from './ContactItem.styled';
 
 export default function ContactItem({ contact, index }) {
-  const { id, name, phone } = contact;
+  const { id, name, number: phone } = contact;
   const [deleteContact, { isLoading }] = useDeleteContactMutation();
 
   return (
@@ -34,7 +34,7 @@ ContactItem.propTypes = {
   contact: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    phone: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
   }),
   index: PropTypes.number.isRequired,
 };

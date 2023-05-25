@@ -1,34 +1,30 @@
 import styled from '@emotion/styled';
 import theme from 'theme';
 
-export const Section = styled.main({
-  margin: '2vh auto',
-  height: '96vh',
-  width: '820px',
-  color: theme.colors.blue,
-  background: theme.img.bg,
-  backgroundRepeat: 'no-repeat',
-  backgroundPosition: 'center',
-  backgroundSize: 'contain',
+export const Section = styled.section({
+  marginTop: '40px',
 });
 export const Container = styled.div({
   margin: '0 auto',
-  padding: '16px 10px 16px 100px',
-  maxHeight: '96%',
-  width: '100%',
-  boxSizing: 'border-box',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'flex-start',
-  gap: '6px',
-});
-export const Content = styled.section({
-  width: '100%',
-  boxSizing: 'border-box',
+  padding: '0px 16px',
+  width: '80%',
   textAlign: 'center',
 });
+export const GridContainer = styled.div({
+  maxHeight: '80vh',
+  display: 'grid',
+  gridTemplateColumns: theme.gridTemplateColumns.layout,
+  gridTemplateRows: theme.gridTemplateRows.layout,
+  gridTemplateAreas: theme.gridTemplateAreas.layout,
+  gridGap: '40px',
+});
 export const Title = styled.h1({
-  marginBottom: '20px',
+  marginBottom: '40px',
   fontSize: '52px',
+  color: theme.colors.acent,
   textDecoration: 'underline',
 });
+export const GridCell = styled.div({}, props => ({
+  maxHeight: '100%',
+  gridArea: props.gridArea,
+}));

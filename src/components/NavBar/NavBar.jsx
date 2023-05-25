@@ -6,66 +6,78 @@ import { useSelector } from 'react-redux';
 import UserMenu from 'components/UserMenu/UserMenu';
 //STYLES
 import theme from 'theme';
-import { Nav, LinkTitle } from './NavBar.styled';
+import { Nav, LinkTitle, LinksBox } from './NavBar.styled';
 
 const NavBar = () => {
   const isLogin = useSelector(getIsLogin);
 
   return (
     <Nav>
-      {isLogin ? (
-        <NavLink
-          to="/"
-          style={({ isActive }) => {
-            return {
-              display: 'block',
-              fontSize: '30px',
-              fontWeight: 'bold',
-              textDecoration: 'none',
-              color: isActive ? theme.colors.green : theme.colors.blue,
-            };
-          }}
-        >
-          <LinkTitle>Контакти</LinkTitle>
-        </NavLink>
-      ) : (
-        <>
+      <LinksBox>
+        {isLogin ? (
           <NavLink
-            to="/login"
+            to="/"
             style={({ isActive }) => {
               return {
-                display: 'block',
+                boxSizing: 'border-box',
+                width: '100%',
+                padding: '4px 10px 8px 10px',
                 fontSize: '30px',
                 fontWeight: 'bold',
                 textDecoration: 'none',
-                color: isActive ? theme.colors.green : theme.colors.blue,
-                borderBottom: isActive
-                  ? `2px solid ${theme.colors.green}`
-                  : 'none',
+                color: isActive ? theme.colors.acent : theme.colors.grey,
+                borderRadius: isActive ? '10px' : 'none',
+                boxShadow: isActive ? theme.shadows.submitButtonShadow : 'none',
               };
             }}
           >
-            <LinkTitle>Авторизація</LinkTitle>
+            <LinkTitle>Контакти</LinkTitle>
           </NavLink>
-          <NavLink
-            to="/register"
-            style={({ isActive }) => {
-              return {
-                display: 'block',
-                fontSize: '30px',
-                fontWeight: 'bold',
-                textDecoration: 'none',
-                color: isActive ? theme.colors.green : theme.colors.blue,
-                borderBottom: isActive
-                  ? `2px solid ${theme.colors.green}`
-                  : 'none',
-              };
-            }}
-          >
-            <LinkTitle>Регістрація</LinkTitle>
-          </NavLink>
-        </>
-      )}
+        ) : (
+          <>
+            <NavLink
+              to="/login"
+              style={({ isActive }) => {
+                return {
+                  boxSizing: 'border-box',
+                  width: '100%',
+                  padding: '4px 10px 8px 10px',
+                  fontSize: '30px',
+                  fontWeight: 'bold',
+                  textDecoration: 'none',
+                  color: isActive ? theme.colors.acent : theme.colors.grey,
+                  borderRadius: isActive ? '10px' : 'none',
+                  boxShadow: isActive
+                    ? theme.shadows.submitButtonShadow
+                    : 'none',
+                };
+              }}
+            >
+              <LinkTitle>Авторизація</LinkTitle>
+            </NavLink>
+            <NavLink
+              to="/register"
+              style={({ isActive }) => {
+                return {
+                  boxSizing: 'border-box',
+                  width: '100%',
+                  padding: '4px 10px 8px 10px',
+                  fontSize: '30px',
+                  fontWeight: 'bold',
+                  textDecoration: 'none',
+                  color: isActive ? theme.colors.acent : theme.colors.grey,
+                  borderRadius: isActive ? '10px' : 'none',
+                  boxShadow: isActive
+                    ? theme.shadows.submitButtonShadow
+                    : 'none',
+                };
+              }}
+            >
+              <LinkTitle>Регістрація</LinkTitle>
+            </NavLink>
+          </>
+        )}
+      </LinksBox>
       {isLogin ? <UserMenu /> : null}
     </Nav>
   );

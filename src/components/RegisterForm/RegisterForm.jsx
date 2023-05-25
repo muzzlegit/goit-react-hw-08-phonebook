@@ -1,19 +1,35 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 //API
-import { useSignupUserMutation } from 'redux/authApi';
+import { useSignupUserMutation } from 'redux/authSlice';
 //SLICESS
 import { setUser } from 'redux/userSlice';
+//ICONS
+import { FaUserTie } from 'react-icons/fa';
+import { MdEmail } from 'react-icons/md';
+import { AiFillLock } from 'react-icons/ai';
 //STYLES
-import { Form, Label, Input, Button } from './RegisterForm.styled';
+import {
+  FormBox,
+  FormTitle,
+  FormSubTitle,
+  Form,
+  InputBox,
+  Input,
+  Button,
+  ErrorBox,
+} from './RegisterForm.styled';
+import theme from 'theme';
 
 const RegisterForm = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [shouldLogin, setshouldLogin] = useState(false);
+  const [isInputChange, setisInputChange] = useState(false);
   const dispatch = useDispatch();
-  const [signupUser, { isSuccess, error, isError }] = useSignupUserMutation();
+  const navigate = useNavigate();
+  const [signupUser, { isError }] = useSignupUserMutation();
 
   const onInputChange = e => {
     const key = e.currentTarget.name;
@@ -22,78 +38,102 @@ const RegisterForm = () => {
     switch (key) {
       case 'name':
         setName(value);
+        setisInputChange(true);
         break;
       case 'email':
         setEmail(value);
+        setisInputChange(true);
         break;
       case 'password':
         setPassword(value);
+        setisInputChange(true);
         break;
       default:
         break;
     }
   };
   const onSubmit = async e => {
-    e.preventDefault();
-    const data = await signupUser({ name, email, password });
-    dispatch(setUser(data));
+    try {
+      e.preventDefault();
+      const { data, error } = await signupUser({ name, email, password });
+      if (data) {
+        dispatch(setUser(data));
+        navigate('/');
+      }
+      if (error) throw error;
+    } catch (error) {
+      setisInputChange(false);
+      console.log(error);
+    }
   };
 
   return (
-    <Form onSubmit={onSubmit}>
-      <Label>
-        Ім'я
-        <Input
-          type="text"
-          name="name"
-          // pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-          required
-          placeholder="...запиши ім'я"
-          value={name}
-          onChange={onInputChange}
-        />
-      </Label>
-      <Label>
-        Пошта
-        <Input
-          type="tel"
-          name="email"
-          // pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          required
-          placeholder="...запиши номер"
-          value={email}
-          onChange={onInputChange}
-        />
-      </Label>
-      <Label>
-        Пароль
-        <Input
-          type="tel"
-          name="password"
-          // pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          required
-          placeholder="...запиши номер"
-          value={password}
-          onChange={onInputChange}
-        />
-      </Label>
-      <Label>
-        Авторизуватись після реєстрації
-        <Input
-          type="checkbox"
-          name="password"
-          // pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          onClick={e => {
-            setshouldLogin(e.target.checked);
-          }}
-        />
-      </Label>
-      <Button type="submit">Створити</Button>
-    </Form>
+    <FormBox
+      shadow={
+        isError && !isInputChange
+          ? theme.shadows.formShadowRed
+          : theme.shadows.formShadow
+      }
+    >
+      <FormTitle>Реєстрація</FormTitle>
+      <FormSubTitle>Давай, зареєструємо твій профіль разом!</FormSubTitle>
+      <Form onSubmit={onSubmit}>
+        <InputBox>
+          <Input
+            type="text"
+            name="name"
+            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+            required
+            placeholder="запиши своє ім'я"
+            value={name}
+            onChange={onInputChange}
+          />
+          <FaUserTie
+            size="24px"
+            style={{ position: 'absolute', top: '25%', left: '8px' }}
+            color={theme.colors.acent}
+          />
+        </InputBox>
+        <InputBox>
+          <Input
+            type="email"
+            name="email"
+            required
+            placeholder="вкажи електронну пошту"
+            value={email}
+            onChange={onInputChange}
+          />
+          <MdEmail
+            size="24px"
+            style={{ position: 'absolute', top: '25%', left: '8px' }}
+            color={theme.colors.acent}
+          />
+        </InputBox>
+        <InputBox>
+          <Input
+            type="tel"
+            name="password"
+            required
+            placeholder="придумай надійний пароль"
+            value={password}
+            onChange={onInputChange}
+          />
+          <AiFillLock
+            size="24px"
+            style={{ position: 'absolute', top: '25%', left: '8px' }}
+            color={theme.colors.acent}
+          />
+        </InputBox>
+
+        <Button type="submit">Створити новий профіль</Button>
+      </Form>
+      <ErrorBox>
+        {isError &&
+          !isInputChange &&
+          'Щось пішло не так... Давай спробуємо знову!'}
+      </ErrorBox>
+    </FormBox>
   );
 };
 

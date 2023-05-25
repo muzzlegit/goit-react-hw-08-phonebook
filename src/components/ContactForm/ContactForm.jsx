@@ -47,7 +47,7 @@ export default function ContactForm() {
   return (
     <Form onSubmit={onSubmit}>
       <Label>
-        Ім'я
+        Ім'я:
         <Input
           type="text"
           name="name"
@@ -60,7 +60,7 @@ export default function ContactForm() {
         />
       </Label>
       <Label>
-        Номер
+        Номер:
         <Input
           type="tel"
           name="number"
@@ -72,9 +72,7 @@ export default function ContactForm() {
           onChange={onInputChange}
         />
       </Label>
-      <Button type="submit">
-        <BsPersonPlus size="30px" />
-      </Button>
+      <Button type="submit">Додати контакт</Button>
     </Form>
   );
 }

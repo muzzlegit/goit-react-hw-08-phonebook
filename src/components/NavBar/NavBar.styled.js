@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import theme from 'theme';
 
 export const Nav = styled.nav({
   width: '100%',
@@ -21,6 +20,5 @@ export const LinksBox = styled.div({
   alignItems: 'center',
 });
 export const LinkTitle = styled.span({
-  color: theme.white,
   fontSize: '20px',
 });

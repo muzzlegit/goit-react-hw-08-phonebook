@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 //API
 import { useLoginUserMutation } from 'redux/authSlice';
 //SLICESS
@@ -27,7 +26,6 @@ export const LoginForm = () => {
   const [isInputChange, setisInputChange] = useState(false);
   const dispatch = useDispatch();
   const [loginUser, { isError }] = useLoginUserMutation();
-  const navigate = useNavigate();
 
   const onInputChange = e => {
     const key = e.currentTarget.name;
@@ -52,12 +50,10 @@ export const LoginForm = () => {
       const { data, error } = await loginUser({ email, password });
       if (data) {
         dispatch(setUser(data));
-        navigate('/');
       }
       if (error) throw error;
     } catch (error) {
       setisInputChange(false);
-      console.log(error);
     }
   };
   return (
@@ -69,9 +65,7 @@ export const LoginForm = () => {
       }
     >
       <FormTitle>Авторизація</FormTitle>
-      <FormSubTitle>
-        Вітаю! Давай авторизуємось і почнемо працювати!
-      </FormSubTitle>
+      <FormSubTitle>Вітаю! Авторизуйся і почнемо працювати!</FormSubTitle>
       <Form onSubmit={onSubmit}>
         <InputBox>
           <Input

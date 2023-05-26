@@ -11,7 +11,7 @@ const theme = {
     warm: '#DBC7C9',
     pink: '#ffa5a9',
     pGreen: '#88A795',
-    grey: 'rgb(175, 164, 164)',
+    grey: '#a1a5b0',
     red: '#DC2626',
     green: '#00ea00',
   },

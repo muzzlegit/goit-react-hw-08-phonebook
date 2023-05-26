@@ -1,5 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
+import { Dna } from 'react-loader-spinner';
+//TOASTS
+import { addContactToast, doubleContactToast } from 'utils/toasts';
 //SLICES
 import { useAddContactMutation } from 'redux/contactsSlice';
 import { useGetContactsQuery } from 'redux/contactsSlice';
@@ -9,7 +12,7 @@ import { Form, Label, Input, Button } from './ContactForm.styled';
 export default function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const [addContact] = useAddContactMutation();
+  const [addContact, { isSuccess, isLoading }] = useAddContactMutation();
   const { data: contacstList } = useGetContactsQuery();
 
   const onInputChange = e => {
@@ -34,13 +37,17 @@ export default function ContactForm() {
         contact => contact.name.toLowerCase() === name.toLowerCase()
       )
     ) {
-      alert('В тебе вже є такий контакт!');
+      doubleContactToast();
       return;
     }
     addContact({ id: nanoid(), name, number });
+
     setName('');
     setNumber('');
   };
+  useEffect(() => {
+    if (isSuccess) addContactToast();
+  }, [isSuccess]);
 
   return (
     <Form onSubmit={onSubmit}>
@@ -70,7 +77,19 @@ export default function ContactForm() {
           onChange={onInputChange}
         />
       </Label>
-      <Button type="submit">Додати контакт</Button>
+      <Button type="submit">
+        {isLoading ? (
+          <Dna
+            visible={true}
+            height="36"
+            width="36"
+            ariaLabel="dna-loading"
+            wrapperClass="dna-wrapper"
+          />
+        ) : (
+          'Додати контакт'
+        )}
+      </Button>
     </Form>
   );
 }

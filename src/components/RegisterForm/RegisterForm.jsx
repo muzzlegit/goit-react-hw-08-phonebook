@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+//TOASTS
+import { successRegistrationToast } from 'utils/toasts';
 //API
 import { useSignupUserMutation } from 'redux/authSlice';
 //SLICESS
@@ -28,8 +29,7 @@ const RegisterForm = () => {
   const [password, setPassword] = useState('');
   const [isInputChange, setisInputChange] = useState(false);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [signupUser, { isError }] = useSignupUserMutation();
+  const [signupUser, { isError, isSuccess }] = useSignupUserMutation();
 
   const onInputChange = e => {
     const key = e.currentTarget.name;
@@ -58,14 +58,16 @@ const RegisterForm = () => {
       const { data, error } = await signupUser({ name, email, password });
       if (data) {
         dispatch(setUser(data));
-        navigate('/');
       }
       if (error) throw error;
     } catch (error) {
       setisInputChange(false);
-      console.log(error);
     }
   };
+
+  useEffect(() => {
+    if (isSuccess) successRegistrationToast();
+  }, [isSuccess]);
 
   return (
     <FormBox

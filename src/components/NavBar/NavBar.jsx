@@ -16,7 +16,7 @@ const NavBar = () => {
       <LinksBox>
         {isLogin ? (
           <NavLink
-            to="/"
+            to="/contacts"
             style={({ isActive }) => {
               return {
                 boxSizing: 'border-box',

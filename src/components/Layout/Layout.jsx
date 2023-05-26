@@ -1,4 +1,6 @@
 import { Outlet } from 'react-router-dom';
+import { ToastContainer, Zoom } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 //COMPONENTS
 import NavBar from 'components/NavBar/NavBar';
 //STYLES
@@ -27,6 +29,7 @@ const Layout = () => {
           </GridContainer>
         </Container>
       </Section>
+      <ToastContainer transition={Zoom} />
     </main>
   );
 };

@@ -42,8 +42,9 @@ export const Input = styled.input({
   fontSize: '26px',
 });
 export const Button = styled.button({
-  padding: '10px 20px',
-  height: '100%',
+  padding: '2px',
+  minHeight: '40px',
+  minWidth: '160px',
   border: 'none',
   borderRadius: '10px',
   background: 'transparent',

@@ -7,15 +7,11 @@ export const Item = styled.li({
   gap: '20px',
   color: theme.colors.acent,
 });
-export const Button = styled.button(
-  {
-    border: 'none',
-    backgroundColor: 'transparent',
-    '&:hover': {
-      cursor: 'pointer',
-    },
+export const Button = styled.button({
+  border: 'none',
+  backgroundColor: 'transparent',
+  color: theme.colors.red,
+  '&:hover': {
+    cursor: 'pointer',
   },
-  props => ({
-    color: props.color,
-  })
-);
+});
